@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apply for a Policy | Vuyo Funeral Services</title>
+  <style>
+    :root {
+      --primary: #0b1f4b;
+      --secondary: #003366;
+      --accent: #d4af37;
+      --accent-light: #f5d77f;
+      --background: radial-gradient(circle at top left, #f5f7fa, #e4e9f2);
+      --text: #222;
+      --error: #d9534f;
+      --success: #28a745;
+      --radius: 12px;
+      --shadow-light: rgba(0, 0, 0, 0.07);
+      --shadow-strong: rgba(0, 0, 0, 0.15);
+      --transition: 0.3s ease;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px 15px;
+      font-family: var(--font-family);
+      background: var(--background);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: var(--radius);
+      box-shadow: 0 15px 30px var(--shadow-strong);
+      border-top: 6px solid var(--accent);
+      position: relative;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+
+    /* Step Indicator */
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      user-select: none;
+    }
+
+    .step-indicator div {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--background);
+      color: var(--secondary);
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid var(--secondary);
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+      cursor: default;
+    }
+
+    .step-indicator div.active {
+      background: var(--accent);
+      color: #1c1c1c;
+      border-color: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: var(--primary);
+      user-select: none;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-top: 6px;
+      border: 1.8px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      font-family: var(--font-family);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 6px 2px rgba(0, 51, 102, 0.25);
+      outline: none;
+    }
+
+    input[type="file"] {
+      padding: 6px 8px;
+      font-size: 0.95rem;
+    }
+
+    button {
+      background: linear-gradient(to right, var(--accent), var(--accent-light));
+      color: #1c1c1c;
+      border: none;
+      padding: 16px;
+      width: 100%;
+      font-size: 1.1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 25px;
+      box-shadow: 0 5px 15px var(--shadow-light);
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      user-select: none;
+    }
+
+    button:hover:not(:disabled) {
+      background: linear-gradient(to right, var(--accent-light), var(--accent));
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px var(--shadow-strong);
+    }
+
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+      color: #888;
+    }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .navigation-buttons button {
+      width: 48%;
+      padding: 12px 0;
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .premium-display {
+      font-size: 1.1rem;
+      color: var(--secondary);
+      font-weight: 700;
+      margin-top: 14px;
+      user-select: none;
+      min-height: 1.5em;
+    }
+
+    .repeat-group {
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: #f9f9fc;
+      border: 1.5px dashed var(--secondary);
+      border-radius: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .repeat-group strong {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--primary);
+      font-size: 1.05rem;
+      user-select: none;
+    }
+
+    .repeat-group > div {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .repeat-group > div:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .repeat-group label {
+      margin-top: 8px;
+    }
+
+    .success, .error {
+      display: none;
+      text-align: center;
+      font-weight: 700;
+      margin-top: 25px;
+      font-size: 1.1rem;
+      user-select: none;
+      padding: 12px 10px;
+      border-radius: var(--radius);
+    }
+
+    .success {
+      color: var(--success);
+      background: #e6f4ea;
+      border: 2px solid var(--success);
+    }
+
+    .error {
+      color: var(--error);
+      background: #fdecea;
+      border: 2px solid var(--error);
+    }
+
+    /* WhatsApp Floating Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      text-decoration: none;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
+      z-index: 9999;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+      box-shadow: 0 8px 20px #25d366cc;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 20px;
+      }
+
+      button, .navigation-buttons button {
+        font-size: 1rem;
+      }
+
+      .navigation-buttons {
+        flex-direction: column;
+      }
+
+      .navigation-buttons button {
+        width: 100%;
+      }
+
+      .step-indicator div {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" role="main" aria-labelledby="formTitle">
+    <h2 id="formTitle">Policy Application</h2>
+
+    <div class="step-indicator" aria-label="Form Steps">
+      <div class="active" aria-current="step">1</div>
+      <div>2</div>
+      <div>3</div>
+    </div>
+
+    <form id="policyForm" novalidate>
+      <!-- Step 1 -->
+      <section class="form-step active" id="step-1" aria-label="Personal Information">
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" autocomplete="name" required placeholder="Your full name" />
+
+        <label for="idnumber">ID Number:</label>
+        <input type="text" id="idnumber" name="idnumber" maxlength="13" pattern="\d{13}" required placeholder="13-digit SA ID number" inputmode="numeric" />
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9+ ]{10,15}" required placeholder="+27 123 456 7890" inputmode="tel" />
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" autocomplete="email" required placeholder="example@email.com" />
+      </section>
+
+      <!-- Step 2 -->
+      <section class="form-step" id="step-2" aria-label="Address & Documents">
+        <label for="idupload">Upload ID Document:</label>
+        <input type="file" id="idupload" name="idupload" accept=".jpg,.jpeg,.png,.pdf" required aria-describedby="iduploadHelp" />
+        <small id="iduploadHelp" style="color:#555; user-select:none;">Accepted formats: JPG, PNG, PDF</small>
+
+        <label for="house">House Number:</label>
+        <input type="text" id="house" name="house" required placeholder="e.g. 123" />
+
+        <label for="street">Street Name:</label>
+        <input type="text" id="street" name="street" required placeholder="e.g. Main Street" />
+
+        <label for="suburb">Suburb:</label>
+        <input type="text" id="suburb" name="suburb" required placeholder="e.g. Greenfield" />
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required placeholder="e.g. Johannesburg" />
+
+        <label for="province">Province:</label>
+        <input type="text" id="province" name="province" required placeholder="e.g. Gauteng" />
+      </section>
+
+      <!-- Step 3 -->
+      <section class="form-step" id="step-3" aria-label="Policy Details">
+        <label for="policy">Policy Type:</label>
+        <select id="policy" name="policy" required aria-describedby="premiumDisplay">
+          <option value="" disabled selected>-- Select a Policy --</option>
+          <option value="Standard">Standard Plan</option>
+          <option value="Family">Family Cover</option>
+          <option value="Premium">Premium Cover</option>
+        </select>
+        <div class="premium-display" id="premiumDisplay" aria-live="polite" aria-atomic="true" role="region">Monthly Premium: R0</div>
+
+        <div class="repeat-group" aria-label="Dependents Section">
+          <strong>Dependents</strong>
+          <div id="dependentsContainer" aria-live="polite"></div>
+          <button type="button" onclick="addPerson('dependentsContainer')" aria-label="Add a Dependent">+ Add Dependent</button>
+        </div>
+
+        <div class="repeat-group" aria-label="Extended Family Members Section">
+          <strong>Extended Family Members</strong>
+          <div id="extendedContainer" aria-live="polite"></div>
+          <button type="button" onclick="addPerson('extendedContainer')" aria-label="Add an Extended Family Member">+ Add Extended Member</button>
+        </div>
+      </section>
+
+      <div class="navigation-buttons">
+        <button type="button" id="prevBtn" onclick="prevStep()" disabled aria-label="Go to previous step">← Back</button>
+        <button type="button" id="nextBtn" onclick="nextStep()" aria-label="Go to next step">Next →</button>
+      </div>
+
+      <button type="submit" id="submitBtn" style="display:none;">Submit Application</button>
+
+      <div class="success" id="successMessage" role="alert" aria-live="assertive">🎉 Application submitted successfully!</div>
+      <div class="error" id="errorMessage" role="alert" aria-live="assertive"></div>
+    </form>
+  </div>
+
+  <a href="https://wa.me/27820000000" target="_blank" class="whatsapp-float" title="Chat with us on WhatsApp" aria-label="Chat with us on WhatsApp">💬</a>
+
+  
+ 
+ <script>
+  const premiums = {
+    "Standard": 120,
+    "Family": 250,
+    "Premium": 400
+  };
+
+  let currentStep = 0;
+  const steps = document.querySelectorAll(".form-step");
+  const stepIndicators = document.querySelectorAll(".step-indicator div");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const submitBtn = document.getElementById("submitBtn");
+
+  function updateStepIndicator() {
+    stepIndicators.forEach((el, idx) => {
+      el.classList.toggle("active", idx === currentStep);
+      el.setAttribute("aria-current", idx === currentStep ? "step" : null);
+    });
+  }
+
+  function showStep(step) {
+    steps.forEach((s, i) => s.classList.toggle("active", i === step));
+    updateStepIndicator();
+    prevBtn.disabled = step === 0;
+    nextBtn.style.display = step === steps.length - 1 ? "none" : "inline-block";
+    submitBtn.style.display = step === steps.length - 1 ? "block" : "none";
+  }
+
+  function validateStep(step) {
+    const inputs = steps[step].querySelectorAll("input, select, textarea");
+    for (let input of inputs) {
+      if (!input.checkValidity()) {
+        input.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function nextStep() {
+    if (validateStep(currentStep)) {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  }
+
+  document.getElementById("policy").addEventListener("change", function () {
+    const selected = this.value;
+    document.getElementById("premiumDisplay").textContent = `Monthly Premium: R${premiums[selected] || 0}`;
+  });
+
+  function addPerson(containerId) {
+    const container = document.getElementById(containerId);
+    const div = document.createElement("div");
+    div.className = "repeat-group";
+    div.innerHTML = `
+      <label>Name:</label>
+      <input type="text" name="${containerId}-name[]" required placeholder="First Name" />
+      <label>Surname:</label>
+      <input type="text" name="${containerId}-surname[]" required placeholder="Last Name" />
+      <label>ID Number or DOB:</label>
+      <input type="text" name="${containerId}-id[]" required placeholder="13-digit ID or DOB" />
+    `;
+    container.appendChild(div);
+    div.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  const form = document.getElementById("policyForm");
+  const errorMessage = document.getElementById("errorMessage");
+  const successMessage = document.getElementById("successMessage");
+
+  function extractIDDetails(idNumber) {
+    const dobStr = idNumber.substring(0, 6);
+    const genderDigit = parseInt(idNumber.substring(6, 10), 10);
+    const currentYear = new Date().getFullYear();
+    let birthYear = parseInt(dobStr.substring(0, 2), 10);
+    birthYear += birthYear > currentYear % 100 ? 1900 : 2000;
+    const birthMonth = parseInt(dobStr.substring(2, 4), 10) - 1;
+    const birthDay = parseInt(dobStr.substring(4, 6), 10);
+    const birthDate = new Date(birthYear, birthMonth, birthDay);
+
+    const today = new Date();
+    const age = today.getFullYear() - birthYear - (
+      today.getMonth() < birthMonth || 
+      (today.getMonth() === birthMonth && today.getDate() < birthDay) ? 1 : 0
+    );
+
+    return {
+      birthDate,
+      age,
+      gender: genderDigit >= 5000 ? "Male" : "Female"
+    };
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    errorMessage.style.display = "none";
+    successMessage.style.display = "none";
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const idNumber = document.getElementById("idnumber").value.trim();
+
+    if (!/^\d{13}$/.test(idNumber)) {
+      errorMessage.textContent = "⚠️ ID must be exactly 13 digits and contain only numbers.";
+      errorMessage.style.display = "block";
+      return;
+    }
+
+    const { birthDate, age, gender } = extractIDDetails(idNumber);
+
+    if (isNaN(birthDate.getTime())) {
+      errorMessage.textContent = "⚠️ Invalid date of birth in ID number.";
+      errorMessage.style.display = "block";
+      return;
+    }
+
+    if (age < 18) {
+      errorMessage.textContent = `⚠️ Applicant must be at least 18 years old. Current age: ${age}`;
+      errorMessage.style.display = "block";
+      return;
+    }
+
+    // Optionally: show extracted info in console or somewhere visible
+    console.log(`DOB: ${birthDate.toDateString()}, Gender: ${gender}, Age: ${age}`);
+
+    // Success - proceed with simulated submission
+    successMessage.textContent = "🎉 Application submitted successfully!";
+    successMessage.style.display = "block";
+    form.reset();
+    showStep(0);
+  });
+
+  // Initialize
+  showStep(currentStep);
+</script>
